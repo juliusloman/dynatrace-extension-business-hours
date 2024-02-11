@@ -1,0 +1,27 @@
+{
+	"enabled": true,
+	"description": "slo_business_hours activation",
+	"version": "0.0.1",
+	"activationContext": "REMOTE",
+	"pythonRemote": {
+		"levels": [
+			{
+				"level": "24x7",
+				"cron": "* * * * *",
+				"weight": 1
+			},
+			{
+				"level": "8x5",
+				"cron": "* 9-16 * * 1-5",
+				"weight": 1,
+				"weight_outside": 0.1
+			},
+			{
+				"level": "weekends",
+				"cron": "* * * * 0,7",
+				"weight": 1
+			}
+
+		]
+	}
+}

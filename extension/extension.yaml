@@ -1,0 +1,21 @@
+name: custom:business-hours
+version: 0.0.1
+minDynatraceVersion: "1.253"
+author:
+  name: "Alanata a.s."
+
+python:
+  runtime:
+    module: business_hours
+    version:
+      min: "3.9"
+
+  activation:
+    remote:
+      path: activationSchema.json
+
+metrics:
+  - key: business_hours
+    metadata:
+      displayName: "Business hours"
+      unit: Unspecified
