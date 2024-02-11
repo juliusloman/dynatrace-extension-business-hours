@@ -19,3 +19,6 @@ metrics:
     metadata:
       displayName: "Business hours"
       unit: Unspecified
+      dimensions:
+        - key: level
+          displayName: "Level"
