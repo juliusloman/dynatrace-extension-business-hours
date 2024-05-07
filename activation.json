@@ -1,10 +1,10 @@
 {
 	"enabled": true,
 	"description": "slo_business_hours activation",
-	"version": "0.0.1",
+	"version": "0.0.6",
 	"activationContext": "REMOTE",
 	"pythonRemote": {
-		"levels": [
+		"crons": [
 			{
 				"level": "24x7",
 				"cron": "* * * * *",
@@ -21,7 +21,24 @@
 				"cron": "* * * * 0,7",
 				"weight": 1
 			}
-
+		],
+		"calendars": [
+			{
+				"level": "remotebusiness",
+				"calendar_url": "https://mail.alanata.sk/owa/calendar/80e82c39eaa74f4abc6cb82ebbcbb0ab@alanata.sk/ce2ebc876b33476daa6f37d6eb079d869314229317724058470/S-1-8-1740499558-3503060399-594748952-3254423999/reachcalendar.ics",
+				"refresh_minutes": 5,
+				"use_summary": false,
+				"level_name": null,
+				"weight": 1
+			},
+			{
+				"level": "remotebusiness-fallback",
+				"calendar_url": "https://mail.alanata.sk/owa/calendar/80e82c39eaa74f4abc6cb82ebbcbb0ab@alanata.sk/ce2ebc876b33476daa6f37d6eb079d869314229317724058470/S-1-8-1740499558-3503060399-594748952-3254423999/reachcalendar.ics",
+				"refresh_minutes": 5,
+				"use_summary": true,
+				"level_name": null,
+				"weight": 1
+			}
 		]
 	}
 }

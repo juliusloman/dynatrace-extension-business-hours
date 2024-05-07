@@ -1,6 +1,78 @@
 {
   "types": {
-    "dynatrace.datasource.python:business_hours-endpoint": {
+    "dynatrace.datasource.python:business_hours-calendar": {
+      "type": "object",
+      "displayName": "Level",
+      "summaryPattern": "{level}",
+      "properties": {
+        "level": {
+          "displayName": "Level name",
+          "type": "text",
+          "nullable": false,
+          "default": "",
+          "constraints": [
+            {
+              "type": "LENGTH",
+              "minLength": 1,
+              "maxLength": 500
+            }
+          ],
+          "maxItems": 1
+        },
+        "calendar_url": {
+            "displayName": "Calendar URL",
+            "description": "URL for remote calendar in ical format",
+            "type": "text",
+            "nullable": false,
+            "default": "",
+            "constraints": [
+              {
+                "type": "LENGTH",
+                "minLength": 1,
+                "maxLength": 1000
+              }
+            ],
+            "maxItems": 1
+          },
+          "refresh_minutes": {
+            "displayName": "Refresh interval",
+            "description": "Time in minutes between calendar refresh",
+            "nullable": false,
+            "type": "integer",
+            "default": 60,
+            "constraints": [
+            ]
+          },
+          "use_summary": {
+            "displayName": "Use event summary (title) as level",
+            "description": "If enabled, event summary of events are used as level names, otherwise configured level name is used if there is a calendar match",
+            "nullable": false,
+            "type": "boolean",
+            "default": true,
+            "constraints": [
+            ]
+          },
+          "weight": {
+            "displayName": "Weight",
+            "description": "Metric weight",
+            "nullable": false,
+            "type": "float",
+            "default": 1,
+            "constraints": [
+            ]
+          },
+          "weight_outside": {
+            "displayName": "Weight outside hours",
+            "description": "Metric weight outside hours (unset if not specified)",
+            "nullable": true,
+            "type": "float",
+            "default": null,
+            "constraints": [
+            ]
+          }
+        }
+    },
+    "dynatrace.datasource.python:business_hours-cron": {
       "type": "object",
       "displayName": "Level",
       "summaryPattern": "{level}",
@@ -22,7 +94,6 @@
         "cron": {
           "displayName": "Cron scheduler",
           "description": "Define business hours level using cron expression",
-          "documentation": "",
           "nullable": false,
           "type": "text",
           "default": "* * * * *",
@@ -36,7 +107,6 @@
         "weight": {
           "displayName": "Weight",
           "description": "Metric weight",
-          "documentation": "",
           "nullable": false,
           "type": "float",
           "default": 1,
@@ -46,7 +116,6 @@
         "weight_outside": {
           "displayName": "Weight outside hours",
           "description": "Metric weight outside hours (unset if not specified)",
-          "documentation": "",
           "nullable": true,
           "type": "float",
           "default": null,
@@ -60,19 +129,34 @@
       "type": "object",
       "displayName": "Business hours configuration",
       "properties": {
-        "levels": {
-          "displayName": "Business hours",
+        "crons": {
+          "displayName": "Cron based business hours",
           "type": "list",
           "items": {
             "type": {
-              "$ref": "#/types/dynatrace.datasource.python:business_hours-endpoint"
+              "$ref": "#/types/dynatrace.datasource.python:business_hours-cron"
             }
           },
           "nullable": false,
-          "minItems": 1,
+          "minItems": 0,
           "maxItems": 100,
           "metaData": {
-            "addItemButton": "Add level"
+            "addItemButton": "Add cron based level"
+          }
+        },
+        "calendars": {
+          "displayName": "Calendar based business hours",
+          "type": "list",
+          "items": {
+            "type": {
+              "$ref": "#/types/dynatrace.datasource.python:business_hours-calendar"
+            }
+          },
+          "nullable": false,
+          "minItems": 0,
+          "maxItems": 100,
+          "metaData": {
+            "addItemButton": "Add calendar based level"
           }
         }
       }

@@ -1,6 +1,6 @@
 name: custom:business-hours
-version: 0.0.1
-minDynatraceVersion: "1.253"
+version: 0.0.9
+minDynatraceVersion: 1.285.0
 author:
   name: "Alanata a.s."
 
