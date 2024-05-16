@@ -1,10 +1,12 @@
 # Business Hours EF2 Extension
 
 This extension is primarilly used for defining business hours for SLOs and other use cases. See the Dynatrace community [PRO TIP - Business hours in Dynatrace for SLOs or metric events](https://community.dynatrace.com/t5/Dynatrace-tips/PRO-TIP-Business-hours-in-Dynatrace-for-SLOs-or-metric-events/m-p/240367#M1202). Dynatrace extension generating artifical metric for calculating SLO considering business hours. This extension creates a metric key ```business_hours``` with the ```level``` dimension. Extension configuraiton allows you to define two sources of business hours definition:
-- **Cron based** - create business hours level based on [cron](https://en.wikipedia.org/wiki/Cron) definition. 
-- **Calendar based** - create busines hours level (or levels) based on remote calendar in ical format. 
+- **Cron based** 
+- **Calendar based**
 
 ## Cron based configuration
+
+Create business hours level based on [cron](https://en.wikipedia.org/wiki/Cron) definition. It does not allow any exceptions.
 
 - **Level name** - specifies level name (level metric dimension), e.g. _24x7_
 - **Cron scheduler** - specify [cron-based](https://en.wikipedia.org/wiki/Cron) format when the metric for specified level
@@ -13,7 +15,9 @@ This extension is primarilly used for defining business hours for SLOs and other
 
 ## Calendar based configuration
 
-This option allows you to flexible define your business hours level in a calendar configured in your preferred calendar system (Google calendar, Office 365, etc.) if calendar is accesible remotely from the ActiveGate extension.
+Create busines hours level (or levels) based on remote calendar in ical format. 
+
+This option allows you to flexible define your business hours level in a calendar configured in your preferred calendar system (Google calendar, Office 365, etc.) if calendar is accesible remotely from the ActiveGate where the extension is deployed.
 
 - **Level name** - specifies level name (level metric dimension)  e.g. _24x7_ , unless **Use event summary** option is selected
 - **Calendar URL** - URL of the remote calendar in [icalendar](https://en.wikipedia.org/wiki/ICalendar) format
@@ -26,7 +30,9 @@ This option allows you to flexible define your business hours level in a calenda
 For calendar sharing see:
 
 - [Microsoft 365](https://support.microsoft.com/en-us/office/calendar-sharing-in-microsoft-365-b576ecc3-0945-4d75-85f1-5efafb8a37b4)
-- [Google calendar](https://support.google.com/calendar/answer/37082)
+In settings, choose Calendar (1), Shared calendars (2) scroll down to Publish calendar (3) choose your desired calednar (4), select all details and choose publish (5). Use the ICS URL (6) in the calendar based definition: ![Microsoft 365](docs/sharing_office365_web.png)
+- [Google calendar](https://support.google.com/calendar/answer/37082) 
+In settings, choose desired calendar (1) and share with specific people or groups (2) and from the detail choose secret calendar address in ical format (3). Use this URL in the calendar based definition: ![Google Calendar](docs/sharing_google_web.png)
 
 
 ## Extension Deployment
