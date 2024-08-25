@@ -69,6 +69,14 @@
             "default": null,
             "constraints": [
             ]
+          },
+          "generate_negative": {
+            "displayName": "Generate negatives",
+            "description": "If enabled, negative dimensions will be generated",
+            "nullable": true,
+            "type": "boolean",
+            "constraints": [
+            ]
           }
         }
     },
@@ -121,8 +129,15 @@
           "default": null,
           "constraints": [
           ]
+        },
+        "generate_negative": {
+          "displayName": "Generate negatives",
+          "description": "If enabled, negative dimensions will be generated",
+          "nullable": true,
+          "type": "boolean",
+          "constraints": [
+          ]
         }
-
       }
     },
     "pythonRemote": {
