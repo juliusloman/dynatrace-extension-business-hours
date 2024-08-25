@@ -1,0 +1,274 @@
+{
+  "metadata": {
+    "configurationVersions": [
+      7
+    ],
+    "clusterVersion": "1.298.38.20240821-140021"
+  },
+  "id": "ac575fc2-6a2d-433d-8f18-238c374d79f3",
+  "dashboardMetadata": {
+    "name": "Business Hours Overview",
+    "shared": false,
+    "owner": "julius.loman@alanata.sk",
+    "hasConsistentColors": false
+  },
+  "tiles": [
+    {
+      "name": "Business hours overview",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 0,
+        "left": 456,
+        "width": 912,
+        "height": 532
+      },
+      "tileFilter": {},
+      "isAutoRefreshDisabled": false,
+      "customName": "Data explorer results",
+      "queries": [
+        {
+          "id": "A",
+          "metric": "business_hours",
+          "spaceAggregation": "AUTO",
+          "timeAggregation": "DEFAULT",
+          "splitBy": [
+            "level"
+          ],
+          "sortBy": "DESC",
+          "sortByDimension": "",
+          "filterBy": {
+            "nestedFilters": [],
+            "criteria": []
+          },
+          "limit": 20,
+          "rate": "NONE",
+          "enabled": true
+        }
+      ],
+      "visualConfig": {
+        "type": "GRAPH_CHART",
+        "global": {},
+        "rules": [
+          {
+            "matcher": "A:",
+            "unitTransform": "auto",
+            "valueFormat": "auto",
+            "properties": {
+              "color": "DEFAULT",
+              "seriesType": "STACKED_COLUMN"
+            },
+            "seriesOverrides": []
+          }
+        ],
+        "axes": {
+          "xAxis": {
+            "displayName": "",
+            "visible": true
+          },
+          "yAxes": [
+            {
+              "displayName": "",
+              "visible": true,
+              "min": "AUTO",
+              "max": "AUTO",
+              "position": "LEFT",
+              "queryIds": [
+                "A"
+              ],
+              "defaultAxis": true
+            }
+          ]
+        },
+        "heatmapSettings": {
+          "yAxis": "VALUE",
+          "showLabels": false
+        },
+        "singleValueSettings": {
+          "showTrend": true,
+          "showSparkLine": true,
+          "linkTileColorToThreshold": true
+        },
+        "thresholds": [
+          {
+            "axisTarget": "LEFT",
+            "rules": [
+              {
+                "color": "#7dc540"
+              },
+              {
+                "color": "#f5d30f"
+              },
+              {
+                "color": "#dc172a"
+              }
+            ],
+            "visible": true
+          }
+        ],
+        "tableSettings": {
+          "hiddenColumns": []
+        },
+        "graphChartSettings": {
+          "connectNulls": false
+        },
+        "honeycombSettings": {
+          "showHive": true,
+          "showLegend": true,
+          "showLabels": false
+        }
+      },
+      "queriesSettings": {
+        "resolution": ""
+      },
+      "metricExpressions": [
+        "resolution=null&(business_hours:splitBy(level):sort(value(auto,descending)):limit(20)):limit(100):names"
+      ]
+    },
+    {
+      "name": "Generated Business Hours Levels",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 152,
+        "left": 0,
+        "width": 456,
+        "height": 380
+      },
+      "tileFilter": {},
+      "isAutoRefreshDisabled": false,
+      "customName": "Data explorer results",
+      "queries": [
+        {
+          "id": "A",
+          "metric": "business_hours",
+          "spaceAggregation": "AUTO",
+          "timeAggregation": "DEFAULT",
+          "splitBy": [
+            "level"
+          ],
+          "sortBy": "DESC",
+          "sortByDimension": "level",
+          "filterBy": {
+            "nestedFilters": [],
+            "criteria": []
+          },
+          "limit": 20,
+          "rate": "NONE",
+          "enabled": true
+        }
+      ],
+      "visualConfig": {
+        "type": "TABLE",
+        "global": {},
+        "rules": [
+          {
+            "matcher": "A:",
+            "unitTransform": "auto",
+            "valueFormat": "auto",
+            "properties": {
+              "color": "GRAY",
+              "seriesType": "STACKED_COLUMN"
+            },
+            "seriesOverrides": []
+          }
+        ],
+        "axes": {
+          "xAxis": {
+            "visible": true
+          },
+          "yAxes": []
+        },
+        "heatmapSettings": {
+          "yAxis": "VALUE",
+          "showLabels": false
+        },
+        "singleValueSettings": {
+          "showTrend": true,
+          "showSparkLine": true,
+          "linkTileColorToThreshold": true
+        },
+        "thresholds": [
+          {
+            "axisTarget": "LEFT",
+            "columnId": "Business hours",
+            "rules": [
+              {
+                "color": "#7dc540"
+              },
+              {
+                "color": "#f5d30f"
+              },
+              {
+                "color": "#dc172a"
+              }
+            ],
+            "queryId": "A",
+            "visible": true
+          }
+        ],
+        "tableSettings": {
+          "hiddenColumns": [
+            "A:level.name"
+          ]
+        },
+        "graphChartSettings": {
+          "connectNulls": false
+        },
+        "honeycombSettings": {
+          "showHive": true,
+          "showLegend": true,
+          "showLabels": false
+        }
+      },
+      "queriesSettings": {
+        "resolution": ""
+      },
+      "metricExpressions": [
+        "resolution=Inf&(business_hours:splitBy(level):names:sort(dimension(level,descending)):limit(20)):names"
+      ]
+    },
+    {
+      "name": "Markdown",
+      "tileType": "MARKDOWN",
+      "configured": true,
+      "bounds": {
+        "top": 0,
+        "left": 152,
+        "width": 304,
+        "height": 152
+      },
+      "tileFilter": {},
+      "isAutoRefreshDisabled": false,
+      "markdown": "## ⚙️ [Configure extension](/ui/hub/ext/custom:business-hours)\n***"
+    },
+    {
+      "name": "Image",
+      "tileType": "IMAGE",
+      "configured": true,
+      "bounds": {
+        "top": 0,
+        "left": 0,
+        "width": 152,
+        "height": 152
+      },
+      "tileFilter": {},
+      "isAutoRefreshDisabled": false,
+      "image": "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNDI4Ljc4NSAxMzRoLTk0LjI4M3YtMjcuNDU0YzAtMTUuNzU4LTEyLjc4LTI4LjU0Ni0yOC41NDQtMjguNTQ2aC05OS45MjNjLTE1Ljc1OCAwLTI4LjU0NSAxMi43ODgtMjguNTQ1IDI4LjU0NlYxMzRIODMuMmMtMTAuNTY3IDAtMTkuMiA4LjYzMy0xOS4yIDE5LjJ2MTYyLjU4M2MwIDcuNzMzIDYuMjg0IDE0LjAxNyAxNC4wMTcgMTQuMDE3SDIyNC45NnYtMTguNTYzYzAtNi4zNTEgNS4xNzUtMTEuNTE5IDExLjUyLTExLjUxOWgzOS4wNDVjNi4zNiAwIDExLjUyIDUuMTY4IDExLjUyIDExLjUyVjMyOS44aDE0Ni45MzljNy43MTcgMCAxNC4wMDItNi4yNzggMTQuMDE3LTEzLjk5NVYxNTMuMmMwLTEwLjU2Ny04LjY0OC0xOS4yLTE5LjIxNS0xOS4yek0yMDUuNDkgMTA2LjU0NmMwLS4yOTYuMjUtLjU0Ni41NDUtLjU0Nmg5OS45MjNjLjI5NSAwIC41NDQuMjUuNTQ0LjU0NlYxMzRIMjA1LjQ5di0yNy40NTR6TTI4Ny4wNDQgMzU4LjYwOHYxMy40NGMwIDYuMzUyLTUuMTYgMTEuNTItMTEuNTIgMTEuNTJoLTM5LjA0NWMtNi4zNDUgMC0xMS41Mi01LjE2OC0xMS41Mi0xMS41MnYtMTMuNDRINzguMDE3Yy01LjE3NSAwLTkuOTgyLTEuNTYtMTQuMDE3LTQuMjE1VjQxNC44YzAgMTAuNTUyIDguNjMzIDE5LjIgMTkuMiAxOS4yaDM0NS41ODVjMTAuNTY3IDAgMTkuMjE1LTguNjQ4IDE5LjIxNS0xOS4ydi02MC40MDdhMjUuNDEzIDI1LjQxMyAwIDAxLTE0LjAxNyA0LjIxNUgyODcuMDQ0eiI+PC9wYXRoPjxwYXRoIGQ9Ik0yNDYuMjAzIDMxOC42MDNhMy40NDYgMy40NDYgMCAwMC0zLjQ0MyAzLjQ1N3YzOS4xNjVhMy40NDYgMy40NDYgMCAwMDMuNDQzIDMuNDU4SDI2NS44YzEuODk0IDAgMy40NDMtMS41NTMgMy40NDMtMy40NThWMzIyLjA2YzAtMS45MDUtMS41NS0zLjQ1Ny0zLjQ0My0zLjQ1N2gtMTkuNTk3eiI+PC9wYXRoPjwvc3ZnPg=="
+    },
+    {
+      "name": "Markdown",
+      "tileType": "MARKDOWN",
+      "configured": true,
+      "bounds": {
+        "top": 532,
+        "left": 0,
+        "width": 1368,
+        "height": 342
+      },
+      "tileFilter": {},
+      "isAutoRefreshDisabled": false,
+      "markdown": "# How to use it\n\nUse wit Data Explorer, SLO or Metric event where metric selector allow expressions. It works by multiplying the expresion with a value of the business level (typically 1) and outside business hours by a non-existent value.\n\n## Simple example\n\nJust multiply with the desired business hour level:\n\nbuiltin:host.cpu.user:splitBy():auto * business_hours:filter(eq(level,\"8x5\")):splitBy():auto\n\n## Combining levels\n\nYou can combine multiple levels by applying another level. To use negatives, use the feature **generate negative** for generating also negative levels (prefixed by - )\n\nbuiltin:host.cpu.user:splitBy():auto * business_hours:filter(eq(level,\"16x7\")):splitBy():auto * business_hours:filter(eq(level,\"-deploywindow\")):splitBy():auto"
+    }
+  ]
+}

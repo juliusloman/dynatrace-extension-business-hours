@@ -1,5 +1,5 @@
 name: custom:business-hours
-version: 0.0.14
+version: 0.0.15
 minDynatraceVersion: 1.285.0
 author:
   name: "Alanata a.s."
@@ -22,3 +22,6 @@ metrics:
       dimensions:
         - key: level
           displayName: "Level"
+
+dashboards:
+  - path: dashboards/business_hours_overview.json          

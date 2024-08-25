@@ -1,7 +1,7 @@
 {
 	"enabled": true,
 	"description": "slo_business_hours activation",
-	"version": "0.0.12",
+	"version": "0.0.15",
 	"activationContext": "REMOTE",
 	"pythonRemote": {
 		"crons": [
