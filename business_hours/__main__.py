@@ -56,14 +56,17 @@ class ExtensionImpl(Extension):
 
     def process_crons(self):
         for cron in self.bh_config.crons:
-            self.logger.info(f"Generating business hour metric by {cron.level} of {cron.cron}")
+            self.logger.info(f"Generating business hour metric by cron {cron.level} of {cron.cron}")
             
             if croniter.croniter.match(cron.cron, datetime.now()):
+                self.logger.info(f"Generating business hour metric level={cron.level} with value {cron.weight}")
                 self.report_metric(self.metric_key, cron.weight, dimensions={self.metric_level_dimension: cron.level})
             else:
-                if cron.weight_outside:
+                if cron.weight_outside is not None:
+                    self.logger.info(f"Generating business hour negative metric level={cron.level} with value {cron.weight_outside}")
                     self.report_metric(self.metric_key, cron.weight_outside, dimensions={self.metric_level_dimension: cron.level})
                 if cron.generate_negative:
+                    self.logger.info(f"Generating business hour negative metric level={self.negative_prefix + cron.level} with value {cron.weight}")
                     self.report_metric(self.metric_key, cron.weight, dimensions={self.metric_level_dimension: self.negative_prefix + cron.level})                            
 
     def process_calendars(self):
