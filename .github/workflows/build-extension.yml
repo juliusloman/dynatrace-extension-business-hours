@@ -3,6 +3,7 @@ name: Build Dynatrace Extension
 on:
   push:
     branches: [main]
+    tags: [v*]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -32,6 +33,10 @@ jobs:
       - name: Build extension
         run: |
           dt-sdk build --private-key developer.pem --python-version 3.14
+
+      - name: Get built filename
+        id: ext-file
+        run: echo "name=$(basename dist/*.zip .zip)" >> "$GITHUB_OUTPUT"        
           
       - name: Clean up signing files
         if: always()
@@ -40,5 +45,12 @@ jobs:
       - name: Upload extension artifact
         uses: actions/upload-artifact@v4
         with:
-          name: extension
+          files: ${{ steps.ext-file.outputs.name }}-${{ github.sha }}
           path: dist/*.zip
+          
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          generate_release_notes: true          
