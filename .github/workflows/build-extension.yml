@@ -27,10 +27,11 @@ jobs:
         run: pip install dt-extensions-sdk[cli]
 
       - name: Write signing certificate
-        run: echo "${{ secrets.EXTENSION_CERTIFICATE }}" > developer.pem
+        run: echo "${{ secrets.EXTENSION_DEVELOPER_CERT }}" > developer.pem
 
-      - name: Write signing private key
-        run: echo "${{ secrets.EXTENSION_PRIVATE_KEY }}" >> developer.pem
+      - name: Write CA certificate
+        run: echo "${{ secrets.EXTENSION_CA_CERTIFICATE }}" > Alanata_Dynatrace_Extensions_Development_Root_CA.pem
+
 
       - name: Build extension
         run: |
@@ -54,5 +55,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*.zip
+          files: |
+            dist/*.zip
+            Alanata_Dynatrace_Extensions_Development_Root_CA.pem            
           generate_release_notes: true          
