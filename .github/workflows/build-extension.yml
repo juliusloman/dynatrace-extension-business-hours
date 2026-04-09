@@ -32,7 +32,6 @@ jobs:
       - name: Write CA certificate
         run: echo "${{ secrets.EXTENSION_CA_CERTIFICATE }}" > Alanata_Dynatrace_Extensions_Development_Root_CA.pem
 
-
       - name: Build extension
         run: |
           dt-sdk build --private-key developer.pem --python-version 3.10 --python-version 3.14
