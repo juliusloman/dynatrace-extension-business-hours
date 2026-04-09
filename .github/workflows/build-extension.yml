@@ -45,7 +45,7 @@ jobs:
       - name: Upload extension artifact
         uses: actions/upload-artifact@v4
         with:
-          files: ${{ steps.ext-file.outputs.name }}-${{ github.sha }}
+          name: ${{ steps.ext-file.outputs.name }}
           path: dist/*.zip
           
       - name: Create GitHub Release
