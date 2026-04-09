@@ -1,0 +1,46 @@
+name: Build Dynatrace Extension
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install dt-extensions-sdk[cli]
+
+      - name: Write signing certificate
+        run: echo "${{ secrets.EXTENSION_CERTIFICATE }}" > certificate.pem
+
+      - name: Write signing private key
+        run: echo "${{ secrets.EXTENSION_PRIVATE_KEY }}" > private_key.pem
+
+      - name: Build extension
+        run: |
+          dt ext build \
+            --certificate certificate.pem \
+            --private-key private_key.pem
+
+      - name: Clean up signing files
+        if: always()
+        run: rm -f certificate.pem private_key.pem
+
+      - name: Upload extension artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension
+          path: dist/*.zip
