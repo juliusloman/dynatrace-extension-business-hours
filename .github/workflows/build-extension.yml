@@ -24,20 +24,18 @@ jobs:
         run: pip install dt-extensions-sdk[cli]
 
       - name: Write signing certificate
-        run: echo "${{ secrets.EXTENSION_CERTIFICATE }}" > certificate.pem
+        run: echo "${{ secrets.EXTENSION_CERTIFICATE }}" > developer.pem
 
       - name: Write signing private key
-        run: echo "${{ secrets.EXTENSION_PRIVATE_KEY }}" > private_key.pem
+        run: echo "${{ secrets.EXTENSION_PRIVATE_KEY }}" >> developer.pem
 
       - name: Build extension
         run: |
-          dt ext build \
-            --certificate certificate.pem \
-            --private-key private_key.pem
-
+          dt-sdk build --private-key developer.pem --python-version 3.14
+          
       - name: Clean up signing files
         if: always()
-        run: rm -f certificate.pem private_key.pem
+        run: rm -f developer.pem
 
       - name: Upload extension artifact
         uses: actions/upload-artifact@v4
