@@ -79,8 +79,8 @@ class ExtensionImpl(Extension):
                         active_event_summaries = set()
                         for event in current_events:
                             event_summary = event.get("SUMMARY")
-                            active_event_summaries.add(event_summary)
                             if event_summary:
+                                active_event_summaries.add(event_summary)
                                 self.report_metric(self.metric_key, calendar.weight, dimensions={self.metric_level_dimension: event_summary})
                             else:
                                 self.report_metric(self.metric_key, calendar.weight, dimensions={self.metric_level_dimension: calendar.level})
@@ -92,7 +92,7 @@ class ExtensionImpl(Extension):
                     else:
                         self.report_metric(self.metric_key, calendar.weight, dimensions={self.metric_level_dimension: calendar.level})
                 else:
-                    if calendar.weight_outside:
+                    if calendar.weight_outside is not None:
                         self.report_metric(self.metric_key, calendar.weight_outside, dimensions={self.metric_level_dimension: calendar.level})
 
                     if calendar.generate_negative:
@@ -118,7 +118,8 @@ class ExtensionImpl(Extension):
                     calendar.rical = recurring_ical_events.of(ical)
                     calendar.last_refresh = time.time()
                     for event in ical.walk('VEVENT'):
-                        calendar.event_summaries.add(str(event.get("SUMMARY")))
+                        if summary := event.get("SUMMARY"):
+                            calendar.event_summaries.add(str(summary))
                     self.logger.info(f"Found summaries {calendar.event_summaries}")
                 except Exception as e:
                     self.logger.error(f"Error {e} for {calendar.calendar_url}")
